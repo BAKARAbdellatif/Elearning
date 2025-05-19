@@ -2,6 +2,8 @@
 
 class User
 {
+    private $conn;
+    private $table = "users";
     private $id;
     private $nom;
     private $prenom;
