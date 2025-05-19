@@ -103,4 +103,38 @@ class User
         }
         return $resultats;
     }
+
+    public function getById($id)
+    {
+        $query = "SELECT * FROM $this->table WHERE id=:id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($resultat) {
+            $user = new User($this->conn);
+            $user->setId($resultat['id']);
+            $user->setNom($resultat['nom']);
+            $user->setPrenom($resultat['prenom']);
+            $user->setEmail($resultat['email']);
+            $user->setPassword($resultat['password']);
+            return $user;
+        }
+        return null;
+    }
+
+    public function update()
+    {
+        $query = "UPDATE $this->table SET nom=:nom, prenom=:prenom, email=:email, password=:password WHERE id=:id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(
+            [
+                ':nom' => $this->nom,
+                ':prenom' => $this->prenom,
+                ':email' => $this->email,
+                ':password' => $this->password,
+                ':id' => $this->id
+            ]
+        );
+    }
 }
