@@ -14,9 +14,7 @@ class User
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
-        if ($password) {
-            $this->password = password_hash($password, PASSWORD_BCRYPT);
-        }
+        $this->password = (isset($password)) ? password_hash($password, PASSWORD_BCRYPT) : null;
     }
 
     public function getId()
