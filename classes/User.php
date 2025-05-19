@@ -10,13 +10,14 @@ class User
     private $email;
     private $password;
 
-    public function __construct($id = null, $nom = null, $prenom = null, $email = null, $password = null)
+    public function __construct($db, $id = null, $nom = null, $prenom = null, $email = null, $password = null)
     {
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
         $this->password = (isset($password)) ? password_hash($password, PASSWORD_BCRYPT) : null;
+        $this->conn = $db;
     }
 
     public function getId()
@@ -67,5 +68,20 @@ class User
     public function setPassword($password)
     {
         $this->password = password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    public function create()
+    {
+        $query = "INSERT INTO $this->table(`nom`, `prenom`, `email`, `password`) 
+        VALUES (:nom, :prenom, :email, :password)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':nom', $this->nom);
+        $stmt->bindParam(':prenom', $this->prenom);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":password", $this->password);
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
     }
 }
