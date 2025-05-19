@@ -14,7 +14,9 @@ class User
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
-        $this->password = $password;
+        if ($password) {
+            $this->password = password_hash($password, PASSWORD_BCRYPT);
+        }
     }
 
     public function getId()
@@ -55,5 +57,15 @@ class User
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
 }
