@@ -84,4 +84,23 @@ class User
         }
         return false;
     }
+
+    public function getAll()
+    {
+        $query = "SELECT * FROM $this->table";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $resultats = [];
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $user = new User($this->conn);
+            $user->setId($row['id']);
+            $user->setNom($row['nom']);
+            $user->setPrenom($row['prenom']);
+            $user->setEmail($row['email']);
+            $user->setPassword($row['password']);
+            $resultats[] = $user;
+        }
+        return $resultats;
+    }
 }
