@@ -80,6 +80,8 @@ class User
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":password", $this->password);
         if ($stmt->execute()) {
+            $last_id = $this->conn->lastInsertId();
+            $this->id = $last_id;
             return true;
         }
         return false;

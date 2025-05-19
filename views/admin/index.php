@@ -1,9 +1,9 @@
 <?php
 require_once '../../config/Database.php';
-require_once '../../classes/User.php';
+require_once '../../classes/Admin.php';
 
 $database = new Database();
 $db = $database->getConnection();
-$user = new User($db);
-$resultats = $user->getAll();
+$admin = new Admin($db);
+$resultats = $admin->getAll();
 var_dump($resultats);
