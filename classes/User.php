@@ -100,7 +100,6 @@ class User
             $user->setNom($row['nom']);
             $user->setPrenom($row['prenom']);
             $user->setEmail($row['email']);
-            $user->setPassword($row['password']);
             $resultats[] = $user;
         }
         return $resultats;
@@ -119,7 +118,6 @@ class User
             $user->setNom($resultat['nom']);
             $user->setPrenom($resultat['prenom']);
             $user->setEmail($resultat['email']);
-            $user->setPassword($resultat['password']);
             return $user;
         }
         return null;

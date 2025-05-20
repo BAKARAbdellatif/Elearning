@@ -74,7 +74,6 @@ class Admin extends User
             $admin->setNom($row['nom']);
             $admin->setPrenom($row['prenom']);
             $admin->setEmail($row['email']);
-            $admin->setPassword($row['password']);
             $admin->setIsActive($row['is_active']);
             $admin->setIdUser($row['id_user']);
             $resultats[] = $admin;
@@ -95,7 +94,6 @@ class Admin extends User
             $admin->setNom($row['nom']);
             $admin->setPrenom($row['prenom']);
             $admin->setEmail($row['email']);
-            $admin->setPassword($row['password']);
             $admin->setIsActive($row['is_active']);
             $admin->setIdUser($row['id_user']);
             return $admin;

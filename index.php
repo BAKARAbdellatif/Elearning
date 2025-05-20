@@ -1,13 +1,8 @@
-<?php
-require_once 'config/Database.php';
-require_once 'classes/User.php';
-
-$database = new Database();
-$db = $database->getConnection();
-$user = new User($db);
-$user = $user->getById(1);
-var_dump($user);
-$user->setNom("Alice");
-$user->setPrenom("Smith");
-$user->setEmail("alice@gmail.com");
-$user->update();
+<html>
+<head>
+    <title>My E-learning Platform</title>
+    <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+    <script src="script.js"></script>
+</head>
+<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+</html>
