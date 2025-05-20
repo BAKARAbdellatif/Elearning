@@ -32,7 +32,7 @@ class User
 
     public function getNom()
     {
-        $this->nom;
+        return $this->nom;
     }
 
     public function setNom($nom)
@@ -42,7 +42,7 @@ class User
 
     public function getPrenom()
     {
-        $this->prenom;
+        return $this->prenom;
     }
 
     public function setPrenom($prenom)
@@ -52,7 +52,7 @@ class User
 
     public function getEmail()
     {
-        $this->email;
+        return $this->email;
     }
 
     public function setEmail($email)
@@ -72,19 +72,25 @@ class User
 
     public function create()
     {
-        $query = "INSERT INTO $this->table(`nom`, `prenom`, `email`, `password`) 
-        VALUES (:nom, :prenom, :email, :password)";
+        $query = "INSERT INTO $this->table(`nom`, `prenom`, `email`, `password`) VALUES (:nom, :prenom, :email, :password)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':nom', $this->nom);
         $stmt->bindParam(':prenom', $this->prenom);
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":password", $this->password);
-        if ($stmt->execute()) {
+        try {
+            $stmt->execute();
             $last_id = $this->conn->lastInsertId();
             $this->id = $last_id;
             return true;
+        } catch (Exception $e) {
+            // Gérer les erreurs SQL ici
+            var_dump([
+                'success' => false,
+                'error' => $e->getMessage()
+            ]);
+            die;
         }
-        return false;
     }
 
     public function getAll()
